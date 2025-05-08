@@ -1,0 +1,130 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #2c2f33;
+    background-color: var(--body-bg);
+}
+
+.tabs {
+    display: flex;
+    gap: 20px;
+}
+
+.tab {
+    color: #72767d;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.tab.active {
+    color: #017e84;
+}
+
+.read-all-message {
+    color: #017e84;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.chat-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-item {
+    display: flex;
+    padding: 15px;
+    border-bottom: .5px solid #74747a;
+    cursor: pointer;
+    position: relative;
+}
+.chat-item:hover {
+    background-color: rgba(#a38f99, .3);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Makes the image cover the avatar area without distortion */
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #2ecc71;
+    border: 2px solid #1e2124;
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    display: none;
+}
+
+.status-indicator.offline {
+    background-color: #95a5a6;
+}
+
+.chat-content {
+    flex: 1;
+    min-width: 0;
+    /* Important for text wrapping to work properly */
+}
+
+.chat-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.chat-message {
+    //color: #72767d;
+    font-size: 12px;
+    display: flex;
+    word-break: break-word;
+    /* Allows breaking of long words */
+}
+
+.time-info {
+    font-size: 12px;
+    //color: #343481;
+    text-align: right;
+    margin-left: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.new-ribbon {
+    background-color: #e74c3c;
+    color: white;
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+    position: absolute;
+    right: 15px;
+}

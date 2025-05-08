@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="x_notification.NotificationMenu">
+        <style>
+            .o-dropdown--menu.dropdown-menu.d-block {
+                padding-top: 0px;
+            }
+        </style>
+        <Dropdown position="'bottom-end'" autoOpen="false" beforeOpen.bind="onBeforeOpen">
+            <t t-set-slot="toggler">
+                <i class="fa fa-bell" role="img" aria-label="Notification"/>
+                <span class="o-mail-MessagingMenu-counter badge rounded-pill" id="x_notification_counter"><t t-esc="state.counter"/></span>
+            </t>
+            <t t-set-slot="default">
+                <t t-call="x_notification.Notification.Previews"/>
+            </t>
+        </Dropdown>
+    </t>
+    <t t-name="x_notification.Notification.Previews">
+    <div style="min-width: 420px; max-width: 420px;" class="x_notification">
+        <div class="header">
+            <div class="tabs">
+                <div class="tab active" t-att-id="all_tab" t-on-click="(e) => this.filterAllNotification(e, 'all_tab')">All</div>
+                <div class="tab" t-on-click="(e) => this.filterAllNotification(e, 'project_tab')">Project</div>
+                <div class="tab" t-on-click="(e) => this.filterAllNotification(e, 'hr_tab')">HR</div>
+                <div class="tab" t-on-click="(e) => this.filterAllNotification(e, 'sale_tab')">Sale</div>
+                <div class="tab" t-on-click="(e) => this.filterAllNotification(e, 'crm_tab')">CRM</div>
+                <div class="tab" t-on-click="(e) => this.filterAllNotification(e, 'approval_tab')">Approvals</div>
+            </div>
+            <div class="read-all-message" t-on-click="markReadAll" title="Mark all as read">
+                <icon class="fa fa-check pe-2" />
+            </div>
+        </div>
+
+        <div class="chat-list">
+            <t t-set="datas" t-value="state.current_tab_datas"/>
+            <t t-if="datas.length === 0">
+                <div style="text-align: center; font-style: italic;">
+                    <img src="/x_notification/static/src/image/empty_noti_icon.png" alt="Icon" class="icon-img" style="max-width:100px; max-height:100px"/>
+                    <span><strong>You have no notifications right now!</strong></span>
+                </div>
+            </t>
+
+            <t t-foreach="datas" t-as="data" t-key="data.msg_id">
+                <div class="chat-item" t-on-click="() => this.openNotification(data.msg_id, data.res_model, data.res_id, data.is_seen)">
+                    <div class="avatar">
+                        <t t-if="data.res_model=='project.task'">
+                            <img src="/x_notification/static/src/image/project_task_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <t t-elif="data.res_model=='project.project'">
+                            <img src="/x_notification/static/src/image/project_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <t t-elif="data.res_model=='hr.leave'">
+                            <img src="/x_notification/static/src/image/hr_leave_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <t t-elif="data.res_model=='sale.order'">
+                            <img src="/x_notification/static/src/image/sale_order_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <t t-elif="data.res_model=='crm.lead'">
+                            <img src="/x_notification/static/src/image/crm_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <t t-elif="data.res_model=='approval.request'">
+                            <img src="/x_notification/static/src/image/approval_icon.png" alt="Icon" class="icon-img" />
+                        </t>
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="chat-content">
+                        <div class="chat-name"><t t-esc="data.title"/></div>
+                        <div class="chat-message"><t t-out="getMarkupValue(data.body)"/></div>
+                    </div>
+                    <div class="time-info">
+                        <div><t t-esc="data.date"/></div>
+                        <t t-if="data.is_seen">
+                            <div class="new-ribbon" style="display: none;">NEW</div>
+                        </t>
+                        <t t-else="">
+                            <div class="new-ribbon">NEW</div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </div>
+    </t>
+</templates>
